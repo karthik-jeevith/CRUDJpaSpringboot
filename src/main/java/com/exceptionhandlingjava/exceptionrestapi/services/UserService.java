@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.exceptionhandlingjava.exceptionrestapi.dto.UserRequest;
 import com.exceptionhandlingjava.exceptionrestapi.entity.User;
+import com.exceptionhandlingjava.exceptionrestapi.exception.UserNotFoundException;
 import com.exceptionhandlingjava.exceptionrestapi.repository.UserRepository;
+import com.exceptionhandlingjava.exceptionrestapi.exception.UserNotFoundException;
 
 @Service
 public class UserService {
@@ -46,10 +48,18 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findUser(int Id){
+    public User findUser(int Id) throws UserNotFoundException{
 
         // create custom method findBy followed by entity/model property in JPA. ex:findBy+ userId(model property)
-        return userRepository.findByuserId(Id);
+        User user = userRepository.findByuserId(Id);
+        if (user != null)
+        {
+            return user;
+        }
+        else{
+            throw new UserNotFoundException("user not found with the ID = "+Id);
+        }
+ 
     }
 
 }

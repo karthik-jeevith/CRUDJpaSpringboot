@@ -2,6 +2,8 @@ package com.exceptionhandlingjava.exceptionrestapi.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.exceptionhandlingjava.exceptionrestapi.dto.UserRequest;
 import com.exceptionhandlingjava.exceptionrestapi.entity.User;
+import com.exceptionhandlingjava.exceptionrestapi.exception.UserNotFoundException;
 import com.exceptionhandlingjava.exceptionrestapi.services.UserService;
 
 
@@ -32,7 +35,9 @@ public class UserController {
     @PostMapping("/signup")
     // @RequestBody is being used to map the data (JSON or XML) which came from payload postman, 
     //to our Method parameter.
-    public ResponseEntity<User> saveUser(@RequestBody UserRequest userRequest)
+
+    // @Valid is used to validate the request body
+    public ResponseEntity<User> saveUser(@RequestBody @Valid UserRequest userRequest)
     {
         return new ResponseEntity<>(userService.saveUser(userRequest),HttpStatus.CREATED); 
     }
@@ -46,7 +51,7 @@ public class UserController {
 
 
     @GetMapping("/fetchUserById/{id}")
-    public ResponseEntity<User> getUser(@PathVariable int id){
+    public ResponseEntity<User> getUser(@PathVariable int id) throws UserNotFoundException{
 
         return ResponseEntity.ok(userService.findUser(id));
 
