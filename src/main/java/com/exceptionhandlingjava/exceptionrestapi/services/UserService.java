@@ -27,7 +27,6 @@ public class UserService {
                 .age(userRequest.getAge())
                 .nationality(userRequest.getNationality()).build();
 
-
         // Normal way of assinging values into the object.
         // User user1 = new User();
         // user1.setName(userRequest.getName());
@@ -37,29 +36,54 @@ public class UserService {
         // user1.setAge(userRequest.getAge());
         // user1.setNationality(userRequest.getNationality());
 
-
         return userRepository.save(user);
 
     }
 
-
-    public List<User> findAlluser()
-    {
+    public List<User> findAlluser() {
         return userRepository.findAll();
     }
 
-    public User findUser(int Id) throws UserNotFoundException{
+    public User findUser(int Id) throws UserNotFoundException {
 
-        // create custom method findBy followed by entity/model property in JPA. ex:findBy+ userId(model property)
+        // create custom method findBy followed by entity/model property in JPA.
+        // ex:findBy+ userId(model property)
         User user = userRepository.findByuserId(Id);
-        if (user != null)
-        {
+        if (user != null) {
             return user;
+        } else {
+            throw new UserNotFoundException("user not found with the ID = " + Id);
         }
-        else{
-            throw new UserNotFoundException("user not found with the ID = "+Id);
+
+    }
+
+    public User updateUserService(int id, UserRequest userRequest) throws UserNotFoundException {
+
+        User userTobeUpdated = userRepository.findByuserId(id);
+
+        if (userTobeUpdated != null) {
+
+            userTobeUpdated = User.builder()
+                    .name(userRequest.getName())
+                    .email(userRequest.getEmail())
+                    .mobile(userRequest.getMobile())
+                    .gender(userRequest.getGender())
+                    .age(userRequest.getAge())
+                    .nationality(userRequest.getNationality()).build();
+
+            return userRepository.saveAndFlush(userTobeUpdated);
+
+        } else {
+            throw new UserNotFoundException("user not found with the ID = " + id);
         }
- 
+
+    }
+
+    public User deleteUserService(int id) {
+
+        User user = userRepository.findByuserId(id);
+        userRepository.delete(user);
+        return user;
     }
 
 }

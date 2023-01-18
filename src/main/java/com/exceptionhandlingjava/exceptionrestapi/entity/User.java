@@ -3,6 +3,7 @@ package com.exceptionhandlingjava.exceptionrestapi.entity;
 import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -20,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class User {     // entity class should not be revealed in outside of the world.
      
     @Id    //used for primary key
-    @GeneratedValue // auto generated the value
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto generated the value
     private int userId;
     private String name;
     private String email;
