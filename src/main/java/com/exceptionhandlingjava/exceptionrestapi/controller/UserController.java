@@ -54,17 +54,17 @@ public class UserController {
 
     }
 
-    @PutMapping("/updateUser/{id}")
-    public ResponseEntity<User> UpdateUser(@PathVariable("id") int id, @RequestBody UserRequest user)
+    @PutMapping("/updateUser")
+    public ResponseEntity<User> UpdateUser(@RequestBody UserRequest user)
             throws UserNotFoundException {
 
-        User result = userService.updateUserService(id, user);
+        User result = userService.updateUserService(user);
         return new ResponseEntity<>(result, HttpStatus.OK);
 
     }
 
     @DeleteMapping("/deleteUser/{id}")
-    public ResponseEntity<User> DeleteUser(@PathVariable("id") int id)
+    public ResponseEntity<User> DeleteUser(@PathVariable("id") int id) throws UserNotFoundException
     {
         User user = userService.deleteUserService(id);
         return new ResponseEntity<>(user, HttpStatus.OK);

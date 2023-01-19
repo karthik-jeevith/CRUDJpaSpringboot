@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class UserRequest {
 
    // this is the model be used in postman/ front end application
-
+    private int userId;
     @NotNull(message = "User name should not be NULL")
     private String name;
     @Email

@@ -57,13 +57,14 @@ public class UserService {
 
     }
 
-    public User updateUserService(int id, UserRequest userRequest) throws UserNotFoundException {
+    public User updateUserService(UserRequest userRequest) throws UserNotFoundException {
 
-        User userTobeUpdated = userRepository.findByuserId(id);
+        User userTobeUpdated = userRepository.findByuserId(userRequest.getUserId());
 
         if (userTobeUpdated != null) {
 
             userTobeUpdated = User.builder()
+                    .userId(userRequest.getUserId())
                     .name(userRequest.getName())
                     .email(userRequest.getEmail())
                     .mobile(userRequest.getMobile())
@@ -74,16 +75,23 @@ public class UserService {
             return userRepository.saveAndFlush(userTobeUpdated);
 
         } else {
-            throw new UserNotFoundException("user not found with the ID = " + id);
+            throw new UserNotFoundException("user not found with the ID = " + userRequest.getUserId());
         }
 
     }
 
-    public User deleteUserService(int id) {
+    public User deleteUserService(int id) throws UserNotFoundException {
 
         User user = userRepository.findByuserId(id);
-        userRepository.delete(user);
-        return user;
+
+        if (user != null){
+            userRepository.delete(user);
+            return user;
+        }
+        else{
+            throw new UserNotFoundException("user not found with the ID = " + id);
+        }
+    
     }
 
 }
