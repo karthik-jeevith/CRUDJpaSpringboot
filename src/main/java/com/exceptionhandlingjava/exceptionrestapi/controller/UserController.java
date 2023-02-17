@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import com.exceptionhandlingjava.exceptionrestapi.dto.UserRequest;
 import com.exceptionhandlingjava.exceptionrestapi.entity.User;
 import com.exceptionhandlingjava.exceptionrestapi.exception.UserNotFoundException;
 import com.exceptionhandlingjava.exceptionrestapi.services.UserService;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 // @RestController itself contains controller and It also contains Responsebody. hence no need of method level annotation. 
 //if @controller only be used, then all the method should be annotated with @responsebody.

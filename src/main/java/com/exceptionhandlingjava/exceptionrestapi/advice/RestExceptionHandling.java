@@ -1,15 +1,14 @@
 package com.exceptionhandlingjava.exceptionrestapi.advice;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.exceptionhandlingjava.exceptionrestapi.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.exceptionhandlingjava.exceptionrestapi.exception.UserNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 
 //used for handling global exception
 @RestControllerAdvice
